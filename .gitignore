@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+frontend/dist/
+.vercel/
+.env
+
+# QA / marketing screenshots are generated locally (npm run shots), never committed
+screenshots/
+docs/screenshots/

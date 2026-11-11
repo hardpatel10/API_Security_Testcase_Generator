@@ -1,0 +1,11 @@
+.venv
+node_modules
+frontend/node_modules
+backend/tests
+.pytest_cache
+__pycache__
+package.json
+package-lock.json
+scripts
+screenshots
+docs

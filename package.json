@@ -1,0 +1,13 @@
+{
+  "name": "api-security-test-planner-tools",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only tooling (screenshot workflow). Not used by the Vercel build, which installs frontend/ only.",
+  "scripts": {
+    "shots": "node scripts/screenshots/capture.mjs",
+    "shots:clean": "node scripts/screenshots/clean.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.0"
+  }
+}

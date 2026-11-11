@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Security Test Planner</title>
+    <meta name="description" content="Turn a Postman collection or OpenAPI spec into a security test plan: OWASP API Top 10, CWE, ASVS and WSTG mapped test cases, static findings and an Excel report. Nothing is ever sent to your API." />
+    <meta name="author" content="Hard Pansara" />
+    <meta name="theme-color" content="#07070d" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="API Security Test Planner" />
+    <meta property="og:description" content="Upload an API collection and get OWASP / CWE / ASVS / WSTG mapped security test cases, static findings and an Excel report. No requests are ever sent." />
+    <meta property="og:image" content="/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="API Security Test Planner" />
+    <meta name="twitter:description" content="Security test planning for Postman and OpenAPI files. Built by Hard Pansara." />
+    <meta name="twitter:image" content="/og-image.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      // Dark first: use the saved choice, otherwise dark.
+      try {
+        var t = localStorage.getItem("apitp:theme");
+        if (t !== "light") document.documentElement.classList.add("dark");
+      } catch (e) {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

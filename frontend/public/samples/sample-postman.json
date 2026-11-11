@@ -1,0 +1,113 @@
+{
+  "info": {
+    "name": "Demo Shop API (sample)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": { "type": "bearer", "bearer": [{ "key": "token", "value": "{{accessToken}}", "type": "string" }] },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.demoshop.example.com/v1" },
+    { "key": "insecureUrl", "value": "http://legacy.demoshop.example.com" },
+    { "key": "accessToken", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dummysignature" },
+    { "key": "adminPassword", "value": "Sup3rSecret!" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "auth": { "type": "noauth" },
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"email\": \"user@example.com\", \"password\": \"Passw0rd!123\"}" },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Forgot password",
+          "auth": { "type": "noauth" },
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"email\": \"user@example.com\"}" },
+            "url": "{{baseUrl}}/auth/password/reset"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List users",
+          "request": { "method": "GET", "url": "{{baseUrl}}/users?page=1&limit=20" }
+        },
+        {
+          "name": "Get user by id",
+          "request": { "method": "GET", "url": "{{baseUrl}}/users/:userId" }
+        },
+        {
+          "name": "Update user",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"name\": \"Alice\", \"email\": \"alice@example.com\", \"role\": \"user\", \"isAdmin\": false}" },
+            "url": "{{baseUrl}}/users/:userId"
+          }
+        },
+        {
+          "name": "Delete user (no auth)",
+          "auth": { "type": "noauth" },
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/users/:userId" }
+        },
+        {
+          "name": "Upload avatar",
+          "request": {
+            "method": "POST",
+            "body": { "mode": "formdata", "formdata": [{ "key": "avatar", "type": "file", "src": "avatar.png" }] },
+            "url": "{{baseUrl}}/users/:userId/avatar"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\"productId\": 42, \"quantity\": 1, \"price\": 19.99, \"status\": \"pending\", \"callbackUrl\": \"https://example.com/hook\"}" },
+            "url": "{{baseUrl}}/orders"
+          }
+        },
+        {
+          "name": "Get order",
+          "request": { "method": "GET", "url": "{{baseUrl}}/orders/:orderId" }
+        },
+        {
+          "name": "Track order (API key in query)",
+          "auth": { "type": "noauth" },
+          "request": { "method": "GET", "url": "{{baseUrl}}/orders/track?api_key=abcd1234efgh5678&redirect_url=https://shop.example.com" }
+        }
+      ]
+    },
+    {
+      "name": "Internal",
+      "item": [
+        {
+          "name": "Admin dashboard (Basic auth)",
+          "auth": { "type": "basic", "basic": [{ "key": "username", "value": "admin" }, { "key": "password", "value": "admin123" }] },
+          "request": { "method": "GET", "url": "{{insecureUrl}}/admin/dashboard" }
+        },
+        {
+          "name": "Actuator health",
+          "auth": { "type": "noauth" },
+          "request": { "method": "GET", "url": "{{baseUrl}}/actuator/health" }
+        }
+      ]
+    }
+  ]
+}
