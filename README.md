@@ -12,7 +12,6 @@ Excel report that matches the website (including the Status and Notes you set).
 ## Layout
 
 ```
-api/index.py        Vercel entrypoint (exposes `app`)
 backend/            models.py, standards.py, parsers/, rules/, generator/, export/, app/main.py, tests/
 frontend/           React + Vite + TypeScript + Tailwind (src/components, src/pages, src/api.ts, src/types.ts)
 frontend/public/samples/   sample-postman.json, sample-openapi.yaml (served statically, not in the function bundle)
@@ -40,11 +39,14 @@ Frontend type-check + build: `cd frontend && npm run build`.
 
 ## Deploy on Vercel
 
-1. Push the repo to GitHub and import it in Vercel (no framework preset needed; `vercel.json` sets the commands).
-2. Vercel builds the UI with Vite (`frontend/dist`) and runs `api/index.py` as a Python function
-   (Python 3.12 pinned by `.python-version`; deps from `requirements.txt`).
-3. `/api/*` is rewritten to the function, so UI and API share one domain (no CORS).
+1. Push the repo to GitHub and import it in Vercel. `vercel.json` declares two **services** in one project: `backend` (FastAPI,
+   entrypoint `backend.app.main:app`) and `frontend` (Vite, root `frontend/`).
+2. Public routing is defined once at the top level: `/api/(.*)` goes to `backend`, everything else to `frontend`
+   (which falls back to `index.html`, so unknown URLs show the in-app 404). A service receives the original request path,
+   so the FastAPI routes themselves start with `/api` and the browser calls `/api/...` on the same domain (no CORS).
+3. There are no service bindings: nothing calls another service server-side. Python 3.12 is pinned by `.python-version`.
 
+Local, all services together: `vercel dev` (or `vercel dev --local` without logging in).
 Or with the CLI: `npm i -g vercel && vercel --prod`.
 
 ### Limits and design notes

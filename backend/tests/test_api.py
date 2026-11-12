@@ -100,8 +100,3 @@ def test_export_rejects_invalid_status(postman_bytes):
     analysis["test_cases"][0]["status"] = "Maybe"
     assert client.post("/api/export", json={"analysis": analysis}).status_code == 422
 
-
-def test_vercel_entrypoint_exposes_app():
-    import importlib
-    mod = importlib.import_module("api.index")
-    assert mod.app is app

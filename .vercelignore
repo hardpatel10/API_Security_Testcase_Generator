@@ -1,11 +1,12 @@
 .venv
 node_modules
-frontend/node_modules
 backend/tests
 .pytest_cache
 __pycache__
-package.json
-package-lock.json
-scripts
-screenshots
-docs
+# Dev-only tooling at the repo root. Leading "/" anchors these to the root: an un-anchored "package.json" would also
+# exclude frontend/package.json from the upload and break the frontend build.
+/package.json
+/package-lock.json
+/scripts
+/screenshots
+/docs
